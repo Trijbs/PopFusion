@@ -3,35 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PopFusion - Your Ultimate Music Destination</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <title>PopFusion - Your Music Destination</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="data.js"></script>
-    <script src="search.js"></script>
-    <script src="menu.js"></script>
+    <script defer src="data.js"></script>
+    <script defer src="search.js"></script>
+    <script defer src="menu.js"></script>
 </head>
 <body>
     <header>
         <div class="logo">PopFusion</div>
-        <div class="tagline">Discover, Stream, and Share</div>
+        <div class="tagline">Discover, Stream, Share</div>
         <div class="search-bar">
-            <input type="text" id="search-input" placeholder="Search for artists, songs, albums...">
-            <button class="search-button">Search</button>
+            <input type="text" id="search-input" placeholder="Search artists, songs, albums..." aria-label="Search">
+            <button class="search-button" aria-label="Submit search">Search</button>
         </div>
-        <nav>
+        <nav role="navigation">
+            <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
             <div class="auth-buttons">
                 <button class="sign-in"><a href="login.html">Sign In</a></button>
                 <button class="register"><a href="register.html">Register</a></button>
             </div>
-            <button class="menu-toggle">☰</button>
             <div class="menu">
-                <button class="close-button">✕</button>
+                <button class="close-button" aria-label="Close menu">✕</button>
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="pop.html">Pop</a></li>
                     <li><a href="hip-hop.html">Hip-Hop</a></li>
                     <li><a href="rock.html">Rock</a></li>
                     <li><a href="electronic.html">Electronic</a></li>
-                    <li><a href="billboard.html">Billboard Top 100</a></li>
+                    <li><a href="billboard.html">Top 100</a></li>
                     <li><a href="spotify.html">Spotify Playlists</a></li>
                     <li><a href="discover.html">Discover</a></li>
                     <li><a href="contact.html">Contact</a></li>
@@ -48,10 +49,10 @@
         </section>
 
         <section class="content-grid">
-            <div class="block advertenties">
-                <h2>Advertisements</h2>
-                <a href="advertenties.html" class="placeholder-link">
-                    <div class="placeholder"></div>
+            <div class="ad-banner">
+                <a href="https://example.com/ad" class="banner-link" aria-label="Visit our sponsor">
+                    <img src="https://via.placeholder.com/600x200?text=Ad+Banner" alt="Advertisement Banner">
+                    <div class="banner-text">Discover Our Sponsor!</div>
                 </a>
             </div>
             <div class="block latest-news">
