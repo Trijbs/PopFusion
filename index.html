@@ -1,127 +1,1464 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
-    <title>PopFusion - Your Music Destination</title>
-    <link rel="stylesheet" href="styles.css">
-    <script defer src="data.js"></script>
-    <script defer src="search.js"></script>
-    <script defer src="menu.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PopFusion — Summer 2026 · Amsterdam</title>
+  <meta name="description" content="PopFusion combines festival planning with music discovery. Summer 2026, Amsterdam waterfront. A Trijbs experience." />
+  <meta property="og:title" content="PopFusion — Summer 2026 · Amsterdam" />
+  <meta property="og:description" content="Festival energy, discovery-driven listening. Find the artists, the rhythm, and the route through the weekend." />
+  <meta property="og:image" content="https://trijbsworld.nl/logo.png" />
+  <link rel="icon" href="../logo.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Montserrat:wght@600;700;800;900&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── TOKENS ───────────────────────────────────────────── */
+    :root {
+      --magenta:       #E040FB;
+      --magenta-dark:  #C030D9;
+      --magenta-dim:   rgba(224, 64, 251, 0.15);
+      --magenta-glow:  rgba(224, 64, 251, 0.25);
+      --cyan:          #00E5FF;
+      --bg:            #000;
+      --surface:       #080508;
+      --surface-2:     #0d000f;
+      --border:        rgba(224, 64, 251, 0.12);
+      --border-hover:  rgba(224, 64, 251, 0.4);
+      --neutral:       #93A8AC;
+      --white:         #ffffff;
+      --font-head:     'Montserrat', sans-serif;
+      --font-body:     'Inter', sans-serif;
+      --font-mono:     'Roboto Mono', monospace;
+      --shell:         min(1100px, 94vw);
+      --transition:    200ms ease;
+    }
+
+    /* ── RESET ────────────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    :focus-visible { outline: 2px solid var(--magenta); outline-offset: 3px; }
+
+    /* ── SKIP LINK ────────────────────────────────────────── */
+    .skip-link {
+      position: absolute;
+      top: -999px; left: 1rem;
+      background: var(--magenta);
+      color: #000;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 8px 16px;
+      z-index: 999;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    /* ── NAV ──────────────────────────────────────────────── */
+    .site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1rem 0;
+      transition: background var(--transition), backdrop-filter var(--transition);
+    }
+    .site-header.scrolled {
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: var(--shell);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .nav-brand {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+    }
+    .nav-brand .pf-pop  { color: var(--white); }
+    .nav-brand .pf-fuse { color: var(--magenta); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--magenta); }
+
+    .nav-tag {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+      color: var(--magenta);
+      border: 1px solid var(--border-hover);
+      padding: 4px 10px;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+
+    /* Mobile nav */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    @media (max-width: 700px) {
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        background: rgba(0,0,0,0.96);
+        flex-direction: column;
+        gap: 0;
+        border-bottom: 1px solid var(--border);
+        padding: 1rem 0;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a {
+        padding: 0.75rem 1.5rem;
+        display: block;
+      }
+      .nav-tag { display: none; }
+    }
+
+    /* ── UTILS ────────────────────────────────────────────── */
+    .shell { max-width: var(--shell); margin: 0 auto; padding: 0 1.5rem; }
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 3px;
+      color: var(--magenta);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    .section-heading {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      line-height: 1.1;
+      max-width: 520px;
+    }
+    .text-link {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      color: var(--magenta);
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-hover);
+      padding-bottom: 2px;
+      transition: opacity var(--transition);
+      white-space: nowrap;
+    }
+    .text-link:hover { opacity: 0.7; }
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--magenta), transparent);
+    }
+
+    /* Buttons */
+    .btn-primary {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #000;
+      background: var(--magenta);
+      border: none;
+      padding: 13px 28px;
+      border-radius: 2px;
+      cursor: pointer;
+      display: inline-block;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .btn-primary:hover {
+      background: var(--magenta-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--magenta-glow);
+    }
+    .btn-ghost {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--magenta);
+      background: transparent;
+      border: 1.5px solid var(--magenta);
+      padding: 12px 28px;
+      border-radius: 2px;
+      cursor: pointer;
+      display: inline-block;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .btn-ghost:hover {
+      background: var(--magenta-dim);
+      transform: translateY(-2px);
+    }
+
+    /* Reveal on scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── HERO ─────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 560px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 2rem;
+    }
+    .hero-title {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: clamp(3.5rem, 12vw, 9rem);
+      line-height: 0.9;
+      letter-spacing: -2px;
+      margin-bottom: 1.25rem;
+    }
+    .hero-title .pop   { color: var(--white); }
+    .hero-title .fusion {
+      color: var(--magenta);
+      text-shadow: 0 0 40px var(--magenta-glow), 0 0 80px var(--magenta-glow);
+    }
+    .hero-meta {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+    .hero-sub {
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      color: var(--neutral);
+      max-width: 440px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+    .hero-cta {
+      display: inline-flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.2);
+      z-index: 2;
+      animation: bobDown 2s ease-in-out infinite;
+    }
+    @keyframes bobDown {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ── LINEUP ───────────────────────────────────────────── */
+    #lineup {
+      padding: 7rem 0;
+      background: var(--surface);
+      position: relative;
+    }
+    #lineup::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--magenta), transparent); }
+
+    .lineup-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+    }
+    .artist-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.75rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .artist-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--magenta);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .artist-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(224,64,251,0.1);
+    }
+    .artist-card:hover::before { transform: scaleX(1); }
+
+    .artist-stage {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 2px;
+      color: var(--magenta);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .artist-name {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1.3rem;
+      margin-bottom: 0.25rem;
+      line-height: 1.2;
+    }
+    .artist-genre {
+      font-size: 0.78rem;
+      color: var(--neutral);
+      margin-bottom: 1rem;
+    }
+    .artist-record {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 0.5rem;
+    }
+    .artist-record span { color: var(--white); }
+    .artist-time {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 1px;
+      color: var(--magenta);
+      border: 1px solid var(--border-hover);
+      padding: 3px 8px;
+      border-radius: 2px;
+      margin-top: 0.75rem;
+    }
+    .artist-desc {
+      font-size: 0.78rem;
+      color: var(--neutral);
+      line-height: 1.6;
+      margin-top: 0.75rem;
+    }
+
+    /* ── GENRE LANES ──────────────────────────────────────── */
+    #genres {
+      padding: 7rem 0;
+    }
+    .genre-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .genre-card {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.5rem;
+      transition: background var(--transition), border-color var(--transition);
+      cursor: default;
+    }
+    .genre-card:hover {
+      background: var(--magenta-dim);
+      border-color: var(--border-hover);
+    }
+    .genre-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .genre-name {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+    }
+    .genre-desc {
+      font-size: 0.78rem;
+      color: var(--neutral);
+      line-height: 1.6;
+    }
+
+    /* ── INTERACTIVE PAD ──────────────────────────────────── */
+    #interactive {
+      padding: 7rem 0;
+      background: var(--surface);
+      position: relative;
+      text-align: center;
+    }
+    #interactive::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--magenta), transparent); }
+    #interactive::after  { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--magenta), transparent); }
+
+    .pad-intro {
+      max-width: 600px;
+      margin: 0 auto 3rem;
+    }
+    .pad-intro .section-title { margin-bottom: 0.75rem; }
+    .pad-sub {
+      font-size: 0.9rem;
+      color: var(--neutral);
+      line-height: 1.7;
+    }
+
+    #synth-pad {
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+      aspect-ratio: 16/7;
+      border-radius: 8px;
+      border: 1px solid var(--border-hover);
+      position: relative;
+      overflow: hidden;
+      cursor: crosshair;
+      touch-action: none;
+    }
+    #synth-canvas { width: 100%; height: 100%; display: block; }
+    .pad-label {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.18);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    /* ── CHARTS ───────────────────────────────────────────── */
+    #charts {
+      padding: 7rem 0;
+    }
+    .charts-cols {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+    .chart-block h3 {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      color: var(--magenta);
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .chart-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .chart-rank {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 1.4rem;
+      color: rgba(255,255,255,0.1);
+      min-width: 2rem;
+      text-align: right;
+    }
+    .chart-info { flex: 1; min-width: 0; }
+    .chart-name {
+      font-weight: 500;
+      font-size: 0.88rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .chart-sub {
+      font-size: 0.72rem;
+      color: var(--neutral);
+      margin-top: 1px;
+    }
+    .chart-badge {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 1px;
+      padding: 2px 6px;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+    .badge-up    { color: #4ade80; border: 1px solid rgba(74,222,128,0.3); }
+    .badge-new   { color: var(--magenta); border: 1px solid var(--border-hover); }
+    .badge-down  { color: rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.1); }
+    .badge-book  { color: var(--cyan); border: 1px solid rgba(0,229,255,0.3); }
+
+    /* ── NEWS ─────────────────────────────────────────────── */
+    #news {
+      padding: 7rem 0;
+      background: var(--surface);
+      position: relative;
+    }
+    #news::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--magenta), transparent); }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .news-card {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.75rem 1.5rem;
+      transition: border-color var(--transition), transform var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .news-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--magenta);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .news-card:hover { border-color: var(--border-hover); transform: translateY(-3px); }
+    .news-card:hover::before { transform: scaleX(1); }
+    .news-date {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 0.75rem;
+    }
+    .news-headline {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1rem;
+      line-height: 1.3;
+      margin-bottom: 0.75rem;
+    }
+    .news-body {
+      font-size: 0.8rem;
+      color: var(--neutral);
+      line-height: 1.65;
+    }
+
+    /* ── VISIT ────────────────────────────────────────────── */
+    #visit {
+      padding: 7rem 0;
+    }
+    .visit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .visit-block {
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: border-color var(--transition);
+    }
+    .visit-block:hover { border-color: var(--border-hover); }
+    .visit-icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.75rem;
+    }
+    .visit-title {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+    }
+    .visit-items {
+      list-style: none;
+      font-size: 0.78rem;
+      color: var(--neutral);
+      line-height: 2;
+    }
+    .visit-items li::before {
+      content: '→ ';
+      color: var(--magenta);
+    }
+
+    /* ── MANIFESTO ────────────────────────────────────────── */
+    #manifesto {
+      padding: 7rem 2rem;
+      background: var(--surface);
+      text-align: center;
+      position: relative;
+    }
+    #manifesto::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--magenta), transparent); }
+    .manifesto-text {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      line-height: 1.2;
+      max-width: 700px;
+      margin: 0 auto 1.5rem;
+    }
+    .manifesto-text em { color: var(--magenta); font-style: normal; }
+    .manifesto-credit {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 2px;
+    }
+    .manifesto-credit a { color: var(--magenta); }
+
+    /* ── NEWSLETTER ───────────────────────────────────────── */
+    #updates {
+      padding: 5rem 0;
+    }
+    .updates-panel {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 3rem 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+    .updates-copy .section-title { font-size: clamp(1.4rem, 3vw, 2rem); }
+    .updates-copy p {
+      font-size: 0.85rem;
+      color: var(--neutral);
+      margin-top: 0.75rem;
+      line-height: 1.7;
+    }
+    .updates-form { display: flex; flex-direction: column; gap: 0.75rem; }
+    .updates-form input[type="email"] {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      padding: 12px 16px;
+      width: 100%;
+      outline: none;
+      transition: border-color var(--transition);
+    }
+    .updates-form input[type="email"]:focus { border-color: var(--magenta); }
+    .updates-form input::placeholder { color: rgba(255,255,255,0.25); }
+    .form-feedback {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 1px;
+      color: var(--magenta);
+      min-height: 1em;
+    }
+
+    @media (max-width: 680px) {
+      .updates-panel { grid-template-columns: 1fr; }
+    }
+
+    /* ── FOOTER ───────────────────────────────────────────── */
+    footer {
+      padding: 3rem 0 2rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .footer-inner {
+      max-width: var(--shell);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr auto auto auto;
+      gap: 3rem;
+      align-items: start;
+    }
+    .footer-brand-name {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 1rem;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 0.5rem;
+    }
+    .footer-brand-name span { color: var(--magenta); }
+    .footer-tagline {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.2);
+      line-height: 1.5;
+      max-width: 200px;
+    }
+    .footer-col h4 {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.4rem; }
+    .footer-col a {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
+      transition: color var(--transition);
+    }
+    .footer-col a:hover { color: var(--magenta); }
+    .footer-bottom {
+      max-width: var(--shell);
+      margin: 2rem auto 0;
+      padding: 1.5rem 1.5rem 0;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .footer-bottom span {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,0.15);
+    }
+
+    @media (max-width: 700px) {
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+    @media (max-width: 480px) {
+      .footer-inner { grid-template-columns: 1fr; }
+      .hero-title { letter-spacing: -1px; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="logo">PopFusion</div>
-        <div class="tagline">Discover, Stream, Share</div>
-        <div class="search-bar">
-            <input type="text" id="search-input" placeholder="Search artists, songs, albums..." aria-label="Search">
-            <button class="search-button" aria-label="Submit search">Search</button>
-        </div>
-        <nav role="navigation">
-            <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
-            <div class="auth-buttons">
-                <button class="sign-in"><a href="login.html">Sign In</a></button>
-                <button class="register"><a href="register.html">Register</a></button>
-            </div>
-            <div class="menu">
-                <button class="close-button" aria-label="Close menu">✕</button>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="pop.html">Pop</a></li>
-                    <li><a href="hip-hop.html">Hip-Hop</a></li>
-                    <li><a href="rock.html">Rock</a></li>
-                    <li><a href="electronic.html">Electronic</a></li>
-                    <li><a href="billboard.html">Top 100</a></li>
-                    <li><a href="spotify.html">Spotify Playlists</a></li>
-                    <li><a href="discover.html">Discover</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-    <main>
-        <section class="cta-banner">
-            <h2>Experience Music Like Never Before</h2>
-            <p>Join PopFusion to discover new artists, create playlists, and share your favorite tracks.</p>
-            <button class="cta-button"><a href="register.html">Get Started Now</a></button>
-        </section>
+  <!-- Nav -->
+  <header class="site-header" id="site-header">
+    <div class="nav-inner">
+      <a href="/popfusion/" class="nav-brand" aria-label="PopFusion home">
+        <span class="pf-pop">Pop</span><span class="pf-fuse">Fusion</span>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" id="nav-toggle">Menu</button>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="#lineup">Lineup</a></li>
+        <li><a href="#genres">Discover</a></li>
+        <li><a href="#interactive">Experience</a></li>
+        <li><a href="#charts">Charts</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#visit">Plan Visit</a></li>
+      </ul>
+      <span class="nav-tag">Summer 2026 · Amsterdam</span>
+    </div>
+  </header>
 
-        <section class="content-grid">
-            <div class="ad-banner">
-                <a href="https://example.com/ad" class="banner-link" aria-label="Visit our sponsor">
-                    <img src="https://via.placeholder.com/600x200?text=Ad+Banner" alt="Advertisement Banner">
-                    <div class="banner-text">Discover Our Sponsor!</div>
-                </a>
-            </div>
-            <div class="block latest-news">
-                <h2>Latest News</h2>
-                <a href="latest-news.html" class="placeholder-link">
-                    <div class="placeholder"></div>
-                </a>
-            </div>
-            <div class="block billboard">
-                <h2>Top 100</h2>
-                <a href="billboard.html" class="placeholder-link">
-                    <div class="placeholder"></div>
-                </a>
-            </div>
-            <div class="block spotify">
-                <h2>Spotify Playlists</h2>
-                <a href="spotify.html" class="placeholder-link">
-                    <div class="placeholder"></div>
-                </a>
-            </div>
-            <div class="block discover">
-                <h2>Discover Weekly</h2>
-                <a href="discover.html" class="placeholder-link">
-                    <div class="placeholder"></div>
-                </a>
-            </div>
-        </section>
+  <main id="main">
 
-        <section class="featured-artists">
-            <h2>Featured Artists</h2>
-            <div class="artist">
-                <div class="artist-images">
-                    <img src="https://via.placeholder.com/150?text=Artist+1" alt="Artist 1">
-                    <img src="https://via.placeholder.com/150?text=Artist+2" alt="Artist 2">
-                </div>
-                <h3>Artist Name</h3>
-                <p>Genre: Pop</p>
-                <p>Latest Album: Summer Vibes</p>
-                <button class="listen-now">Listen Now</button>
-                <button class="buy-now">Buy Now</button>
-                <button class="add-to-favorites">Add to Favorites</button>
-                <button class="add-to-playlist">Add to Playlist</button>
-            </div>
-        </section>
-    </main>
+    <!-- Hero -->
+    <section id="hero">
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-content">
+        <p class="hero-meta">Summer 2026 &nbsp;·&nbsp; Amsterdam Waterfront</p>
+        <h1 class="hero-title">
+          <span class="pop">Pop</span><br>
+          <span class="fusion">Fusion</span>
+        </h1>
+        <p class="hero-sub">Festival energy, discovery-driven listening. Find the artists, the rhythm, and the route through the weekend.</p>
+        <div class="hero-cta">
+          <a href="#lineup" class="btn-primary">Explore lineup</a>
+          <a href="#interactive" class="btn-ghost">Feel the sound</a>
+        </div>
+      </div>
+      <p class="scroll-hint" aria-hidden="true">↓ scroll</p>
+    </section>
 
-    <footer>
-        <div class="footer-content">
-            <div class="slogan">The Ultimate Music Experience</div>
-            <p>© 2025 PopFusion. All rights reserved.</p>
-            <div class="social-media">
-                <a href="https://facebook.com">Facebook</a>
-                <a href="https://twitter.com">Twitter</a>
-                <a href="https://instagram.com">Instagram</a>
+    <!-- Lineup -->
+    <section id="lineup" aria-labelledby="lineup-heading">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <div>
+            <span class="eyebrow">Line-up highlights</span>
+            <h2 class="section-title" id="lineup-heading">The first wave is built around stage identity, not clutter.</h2>
+          </div>
+          <a href="#news" class="text-link">Read artist coverage →</a>
+        </div>
+        <div class="lineup-grid">
+
+          <article class="artist-card reveal">
+            <p class="artist-stage">Skyline Stage &nbsp;·&nbsp; Friday</p>
+            <h3 class="artist-name">Luna Arcs</h3>
+            <p class="artist-genre">Synth-pop &nbsp;·&nbsp; Amsterdam</p>
+            <p class="artist-record">Latest: <span>Afterglow Radio</span></p>
+            <p class="artist-desc">Late set with new record, custom visuals, slower encore. Bright vocal hooks over widescreen production.</p>
+            <span class="artist-time">22:10</span>
+          </article>
+
+          <article class="artist-card reveal">
+            <p class="artist-stage">Pulse Hall &nbsp;·&nbsp; Saturday</p>
+            <h3 class="artist-name">North Circuit</h3>
+            <p class="artist-genre">Electronic &nbsp;·&nbsp; Rotterdam</p>
+            <p class="artist-record">Latest: <span>Heat Signature</span></p>
+            <p class="artist-desc">Night sequence moving from warm-up into physical closing. Club-focused production, warm pads, precise pacing.</p>
+            <span class="artist-time">23:40</span>
+          </article>
+
+          <article class="artist-card reveal">
+            <p class="artist-stage">Sunset Forum &nbsp;·&nbsp; Saturday</p>
+            <h3 class="artist-name">Satin Lane</h3>
+            <p class="artist-genre">Pop / R&amp;B &nbsp;·&nbsp; Utrecht</p>
+            <p class="artist-record">Latest: <span>Soft Exit</span></p>
+            <p class="artist-desc">Golden-hour set with audience singback. Soft vocals, groove-led songwriting. The sunset slot suits her perfectly.</p>
+            <span class="artist-time">19:30</span>
+          </article>
+
+          <article class="artist-card reveal">
+            <p class="artist-stage">Harbor Deck &nbsp;·&nbsp; Sunday</p>
+            <h3 class="artist-name">Copper Youth</h3>
+            <p class="artist-genre">Alt-rock &nbsp;·&nbsp; The Hague</p>
+            <p class="artist-record">Latest: <span>Breaker Line</span></p>
+            <p class="artist-desc">Sunday pressure release after discovery sessions. Guitar-heavy, direct writing, live energy that reads in the room.</p>
+            <span class="artist-time">20:50</span>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Genre Lanes -->
+    <section id="genres" aria-labelledby="genres-heading">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <div>
+            <span class="eyebrow">Genre lanes</span>
+            <h2 class="section-title" id="genres-heading">Discovery stays focused around four lanes.</h2>
+          </div>
+          <a href="#charts" class="text-link">See rising artists →</a>
+        </div>
+        <div class="genre-grid">
+          <div class="genre-card reveal">
+            <div class="genre-icon">◈</div>
+            <h3 class="genre-name">Pop</h3>
+            <p class="genre-desc">Melodic hooks, wide-format productions. Luna Arcs and Satin Lane lead the lane with distinct voices and strong records.</p>
+          </div>
+          <div class="genre-card reveal">
+            <div class="genre-icon">▣</div>
+            <h3 class="genre-name">Hip-hop</h3>
+            <p class="genre-desc">Rhythm-forward, lyrically aware. Niko Vale brings summer rehearsal energy. Rising names District One trending now.</p>
+          </div>
+          <div class="genre-card reveal">
+            <div class="genre-icon">◉</div>
+            <h3 class="genre-name">Rock</h3>
+            <p class="genre-desc">Guitar-driven, direct. Copper Youth own the Harbor Deck slot. Crowd Control is the track of the weekend so far.</p>
+          </div>
+          <div class="genre-card reveal">
+            <div class="genre-icon">⬡</div>
+            <h3 class="genre-name">Electronic</h3>
+            <p class="genre-desc">North Circuit holds Pulse Hall. Glass Lobby rising. Heat Signature and Night Harbor are the two records to track.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Synesthetic Pad -->
+    <section id="interactive" aria-labelledby="interactive-heading">
+      <div class="shell">
+        <div class="pad-intro reveal">
+          <span class="eyebrow">Sound experience</span>
+          <h2 class="section-title" id="interactive-heading">Touch the frequency.</h2>
+          <p class="pad-sub">Move your cursor across the pad. Every position is a different note and color — synesthesia as interaction. The sound of PopFusion, playable.</p>
+        </div>
+        <div id="synth-pad" role="application" aria-label="Interactive synesthetic sound pad — move your mouse or touch to play notes" class="reveal">
+          <canvas id="synth-canvas"></canvas>
+          <span class="pad-label" aria-hidden="true">MOVE · CLICK · TOUCH</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Charts -->
+    <section id="charts" aria-labelledby="charts-heading">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <div>
+            <span class="eyebrow">Charts</span>
+            <h2 class="section-title" id="charts-heading">Who's moving, who's booked, who's rising.</h2>
+          </div>
+        </div>
+        <div class="charts-cols">
+
+          <div class="chart-block reveal">
+            <h3>Top Artists</h3>
+            <div class="chart-item">
+              <span class="chart-rank">1</span>
+              <div class="chart-info">
+                <p class="chart-name">Luna Arcs</p>
+                <p class="chart-sub">Afterglow Radio is holding strongest audience response</p>
+              </div>
+              <span class="chart-badge badge-up">↑ 2</span>
             </div>
+            <div class="chart-item">
+              <span class="chart-rank">2</span>
+              <div class="chart-info">
+                <p class="chart-name">Satin Lane</p>
+                <p class="chart-sub">Steady rise from repeat listens</p>
+              </div>
+              <span class="chart-badge badge-new">NEW</span>
+            </div>
+            <div class="chart-item">
+              <span class="chart-rank">3</span>
+              <div class="chart-info">
+                <p class="chart-name">Copper Youth</p>
+                <p class="chart-sub">Pulling ahead on crowd energy</p>
+              </div>
+              <span class="chart-badge badge-down">↓ 1</span>
+            </div>
+          </div>
+
+          <div class="chart-block reveal">
+            <h3>Festival Favorites</h3>
+            <div class="chart-item">
+              <span class="chart-rank">1</span>
+              <div class="chart-info">
+                <p class="chart-name">North Circuit</p>
+                <p class="chart-sub">Pulse Hall · Saturday night headliner</p>
+              </div>
+              <span class="chart-badge badge-book">BOOKED</span>
+            </div>
+            <div class="chart-item">
+              <span class="chart-rank">2</span>
+              <div class="chart-info">
+                <p class="chart-name">Luna Arcs</p>
+                <p class="chart-sub">Skyline Stage · Friday closing</p>
+              </div>
+              <span class="chart-badge badge-book">BOOKED</span>
+            </div>
+            <div class="chart-item">
+              <span class="chart-rank">3</span>
+              <div class="chart-info">
+                <p class="chart-name">Copper Youth</p>
+                <p class="chart-sub">Harbor Deck · Sunday pressure set</p>
+              </div>
+              <span class="chart-badge badge-book">BOOKED</span>
+            </div>
+          </div>
+
+          <div class="chart-block reveal">
+            <h3>Rising Now</h3>
+            <div class="chart-item">
+              <span class="chart-rank">1</span>
+              <div class="chart-info">
+                <p class="chart-name">Glass Lobby</p>
+                <p class="chart-sub">Electronic · climbing fast</p>
+              </div>
+              <span class="chart-badge badge-up">↑</span>
+            </div>
+            <div class="chart-item">
+              <span class="chart-rank">2</span>
+              <div class="chart-info">
+                <p class="chart-name">Luma South</p>
+                <p class="chart-sub">Pop · local circuit breakout</p>
+              </div>
+              <span class="chart-badge badge-up">↑</span>
+            </div>
+            <div class="chart-item">
+              <span class="chart-rank">3</span>
+              <div class="chart-info">
+                <p class="chart-name">District One</p>
+                <p class="chart-sub">Hip-hop · trending this week</p>
+              </div>
+              <span class="chart-badge badge-new">NEW</span>
+            </div>
+          </div>
+
         </div>
-        <div class="footer-links">
-            <a href="privacy.html">Privacy Policy</a>
-            <a href="terms.html">Terms of Service</a>
-            <a href="help.html">Help</a>
-            <a href="contact.html">Contact Us</a>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- News -->
+    <section id="news" aria-labelledby="news-heading">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <div>
+            <span class="eyebrow">Editorial</span>
+            <h2 class="section-title" id="news-heading">Context for the lineup, the visitor flow, and the rising names.</h2>
+          </div>
         </div>
-        <div class="footer-bottom">
-            <p>Powered by PopFusion</p>
-            <p>Version 1.0.0</p>
+        <div class="news-grid">
+
+          <article class="news-card reveal">
+            <p class="news-date">March 3, 2026</p>
+            <h3 class="news-headline">PopFusion opens Summer 2026 with a lineup built around discovery, not overload.</h3>
+            <p class="news-body">Fewer clashes, stronger stage identities, and clearer routes for visitors who want to explore. The concept is rhythm and flow.</p>
+          </article>
+
+          <article class="news-card reveal">
+            <p class="news-date">Editorial</p>
+            <h3 class="news-headline">Why Satin Lane is the set to watch at sunset.</h3>
+            <p class="news-body">The golden-hour slot at Sunset Forum is hers to define. Soft Exit has spent three weeks in the top two. The singback will be loud.</p>
+          </article>
+
+          <article class="news-card reveal">
+            <p class="news-date">Editorial</p>
+            <h3 class="news-headline">North Circuit earns the Pulse Hall spotlight.</h3>
+            <p class="news-body">Heat Signature and Night Harbor back to back is a real case for the closing slot. Club-focused, physically precise. No wasted energy.</p>
+          </article>
+
+          <article class="news-card reveal">
+            <p class="news-date">Visitor guide</p>
+            <h3 class="news-headline">How to structure a low-stress arrival for a multi-stage weekend.</h3>
+            <p class="news-body">Train and tram is the recommended route. Lockers open early. The waterfront food zone resets fast between stages.</p>
+          </article>
+
         </div>
-        <div class="footer-credits">
-            <p>Designed by Ruben</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Visit -->
+    <section id="visit" aria-labelledby="visit-heading">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <div>
+            <span class="eyebrow">Plan your visit</span>
+            <h2 class="section-title" id="visit-heading">Small practical decisions make the whole weekend easier.</h2>
+          </div>
         </div>
-    </footer>
+        <div class="visit-grid">
+
+          <div class="visit-block reveal">
+            <div class="visit-icon">🚉</div>
+            <h3 class="visit-title">Getting there</h3>
+            <ul class="visit-items">
+              <li>Train + tram (recommended)</li>
+              <li>Bike + local parking</li>
+              <li>Drop-off / taxi zone</li>
+            </ul>
+          </div>
+
+          <div class="visit-block reveal">
+            <div class="visit-icon">🎒</div>
+            <h3 class="visit-title">Essentials</h3>
+            <ul class="visit-items">
+              <li>Lockers and storage on site</li>
+              <li>Food and reset zones</li>
+              <li>Weather layers for waterfront</li>
+            </ul>
+          </div>
+
+          <div class="visit-block reveal">
+            <div class="visit-icon">♿</div>
+            <h3 class="visit-title">Accessibility</h3>
+            <ul class="visit-items">
+              <li>Step-aware routes between stages</li>
+              <li>Dedicated support contact</li>
+              <li>Quiet reset spaces available</li>
+            </ul>
+          </div>
+
+          <div class="visit-block reveal">
+            <div class="visit-icon">📩</div>
+            <h3 class="visit-title">Support</h3>
+            <ul class="visit-items">
+              <li>hello@popfusion.nl</li>
+              <li>Full timetable dropping soon</li>
+              <li>Accessibility feedback welcome</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Manifesto -->
+    <section id="manifesto">
+      <p class="manifesto-text">
+        "Sound and image were never meant to be<br>
+        <em>separate things.</em>"
+      </p>
+      <p class="manifesto-credit">
+        — PopFusion by <a href="/" rel="noopener">Trijbs</a> &nbsp;·&nbsp; Amsterdam 2026
+      </p>
+    </section>
+
+    <!-- Newsletter -->
+    <section id="updates" aria-labelledby="updates-heading">
+      <div class="shell">
+        <div class="updates-panel reveal">
+          <div class="updates-copy">
+            <span class="eyebrow">Stay close</span>
+            <h2 class="section-title" id="updates-heading">Next release drop. Ticket news. Timetable.</h2>
+            <p>Use the form to capture interest in lineup news, travel info, and the PopFusion experience.</p>
+          </div>
+          <div>
+            <form class="updates-form" id="newsletter-form" novalidate>
+              <input type="email" name="email" placeholder="your@email.com" aria-label="Email address for PopFusion updates" required />
+              <button type="submit" class="btn-primary">Join updates</button>
+              <p class="form-feedback" id="form-feedback" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <p class="footer-brand-name">POP<span>FUSION</span></p>
+        <p class="footer-tagline">Music-discovery and festival experience. Summer 2026, Amsterdam waterfront.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#lineup">Lineup</a></li>
+          <li><a href="#charts">Charts</a></li>
+          <li><a href="#genres">Discover</a></li>
+          <li><a href="#news">Editorial</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Festival</h4>
+        <ul>
+          <li><a href="#visit">Travel guide</a></li>
+          <li><a href="#visit">Essentials</a></li>
+          <li><a href="#visit">Accessibility</a></li>
+          <li><a href="#updates">Updates</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Trijbs</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/vibebit/">VibeBit</a></li>
+          <li><a href="https://instagram.com/trijbsworld" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://twitter.com/trijbs" target="_blank" rel="noopener">X</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Prototype edition / Summer 2026</span>
+      <span>© 2026 PopFusion · A Trijbs Experience</span>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+
+    // ── Nav scroll behaviour ────────────────────────────────
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // ── Mobile nav toggle ───────────────────────────────────
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks  = document.getElementById('nav-links');
+    navToggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', open);
+    });
+    // Close on link click
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // ── Reveal on scroll ────────────────────────────────────
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => revealObs.observe(el));
+
+    // ── Hero particle field ─────────────────────────────────
+    const heroCanvas = document.getElementById('hero-canvas');
+    const hCtx = heroCanvas.getContext('2d');
+    let W, H;
+    let mouse = { x: 0.5, y: 0.5 };
+    const particles = [];
+
+    function resizeHero() {
+      W = heroCanvas.width  = heroCanvas.offsetWidth;
+      H = heroCanvas.height = heroCanvas.offsetHeight;
+    }
+    resizeHero();
+    window.addEventListener('resize', resizeHero, { passive: true });
+    document.addEventListener('mousemove', e => {
+      mouse.x = e.clientX / window.innerWidth;
+      mouse.y = e.clientY / window.innerHeight;
+    }, { passive: true });
+
+    for (let i = 0; i < 90; i++) {
+      particles.push({
+        x: Math.random(), y: Math.random(),
+        size:  Math.random() * 1.5 + 0.5,
+        speed: Math.random() * 0.0003 + 0.0001,
+        angle: Math.random() * Math.PI * 2,
+        drift: (Math.random() - 0.5) * 0.002,
+        alpha: Math.random() * 0.4 + 0.1
+      });
+    }
+
+    function drawHero() {
+      requestAnimationFrame(drawHero);
+      hCtx.clearRect(0, 0, W, H);
+
+      const gx = mouse.x * W, gy = mouse.y * H;
+      const grad = hCtx.createRadialGradient(gx, gy, 0, gx, gy, Math.max(W, H) * 0.7);
+      grad.addColorStop(0,   'rgba(224,64,251,0.12)');
+      grad.addColorStop(0.4, 'rgba(224,64,251,0.04)');
+      grad.addColorStop(1,   'rgba(0,0,0,0)');
+      hCtx.fillStyle = grad;
+      hCtx.fillRect(0, 0, W, H);
+
+      for (const p of particles) {
+        p.x += (mouse.x - p.x) * 0.0003 + Math.cos(p.angle) * p.speed;
+        p.y += (mouse.y - p.y) * 0.0003 + Math.sin(p.angle) * p.speed;
+        p.angle += p.drift;
+        if (p.x < 0) p.x = 1; if (p.x > 1) p.x = 0;
+        if (p.y < 0) p.y = 1; if (p.y > 1) p.y = 0;
+
+        const dist = Math.hypot(p.x - mouse.x, p.y - mouse.y);
+        const glow = Math.max(0, 1 - dist * 3);
+        hCtx.beginPath();
+        hCtx.arc(p.x * W, p.y * H, p.size + glow * 2, 0, Math.PI * 2);
+        hCtx.fillStyle = `rgba(224,64,251,${p.alpha + glow * 0.4})`;
+        hCtx.fill();
+      }
+    }
+    drawHero();
+
+    // ── Synesthetic pad ─────────────────────────────────────
+    const pad     = document.getElementById('synth-pad');
+    const sCanvas = document.getElementById('synth-canvas');
+    const sCtx    = sCanvas.getContext('2d');
+    let padW, padH;
+    let audioCtx, masterGain;
+    let activeOsc = null, activeGain = null;
+    let isAudioOn = false;
+    let padMouse  = null;
+    let ripples   = [];
+
+    function resizePad() {
+      padW = sCanvas.width  = pad.offsetWidth;
+      padH = sCanvas.height = pad.offsetHeight;
+    }
+    resizePad();
+    window.addEventListener('resize', resizePad, { passive: true });
+
+    function initAudio() {
+      if (isAudioOn) return;
+      isAudioOn  = true;
+      audioCtx   = new (window.AudioContext || window.webkitAudioContext)();
+      masterGain = audioCtx.createGain();
+      masterGain.gain.value = 0.15;
+      masterGain.connect(audioCtx.destination);
+    }
+
+    const NOTES = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25, 783.99, 880.00];
+
+    function freqFromX(x) {
+      return NOTES[Math.min(Math.floor((x / padW) * NOTES.length), NOTES.length - 1)];
+    }
+    function colorFromPos(x, y) {
+      const hue   = 270 + (x / padW) * 60;
+      const light = 35  + (1 - y / padH) * 40;
+      return `hsl(${hue}, 90%, ${light}%)`;
+    }
+
+    function startNote(x, y) {
+      if (!isAudioOn) return;
+      stopNote();
+      activeOsc  = audioCtx.createOscillator();
+      activeGain = audioCtx.createGain();
+      activeOsc.type = 'sine';
+      activeOsc.frequency.value = freqFromX(x);
+      activeGain.gain.setValueAtTime(0, audioCtx.currentTime);
+      activeGain.gain.linearRampToValueAtTime(0.5, audioCtx.currentTime + 0.05);
+      activeOsc.connect(activeGain);
+      activeGain.connect(masterGain);
+      activeOsc.start();
+    }
+    function stopNote() {
+      if (!activeOsc) return;
+      try {
+        activeGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.1);
+        activeOsc.stop(audioCtx.currentTime + 0.1);
+      } catch(e) {}
+      activeOsc = null; activeGain = null;
+    }
+    function updateNote(x) {
+      if (activeOsc) activeOsc.frequency.linearRampToValueAtTime(freqFromX(x), audioCtx.currentTime + 0.02);
+    }
+    function addRipple(x, y, color) {
+      ripples.push({ x, y, r: 2, alpha: 0.6, color });
+    }
+
+    function drawPad() {
+      requestAnimationFrame(drawPad);
+      sCtx.clearRect(0, 0, padW, padH);
+
+      const bg = sCtx.createLinearGradient(0, 0, padW, padH);
+      bg.addColorStop(0, '#0a000d');
+      bg.addColorStop(1, '#050010');
+      sCtx.fillStyle = bg;
+      sCtx.fillRect(0, 0, padW, padH);
+
+      sCtx.strokeStyle = 'rgba(224,64,251,0.06)';
+      sCtx.lineWidth = 1;
+      for (let i = 1; i < NOTES.length; i++) {
+        const x = (i / NOTES.length) * padW;
+        sCtx.beginPath(); sCtx.moveTo(x, 0); sCtx.lineTo(x, padH); sCtx.stroke();
+      }
+
+      if (padMouse) {
+        const { x, y } = padMouse;
+        const col = colorFromPos(x, y);
+        const g = sCtx.createRadialGradient(x, y, 0, x, y, 120);
+        g.addColorStop(0, col.replace('hsl', 'hsla').replace(')', ', 0.3)'));
+        g.addColorStop(1, 'rgba(0,0,0,0)');
+        sCtx.fillStyle = g;
+        sCtx.fillRect(0, 0, padW, padH);
+
+        sCtx.beginPath();
+        sCtx.arc(x, y, 6, 0, Math.PI * 2);
+        sCtx.fillStyle = col;
+        sCtx.shadowBlur = 16;
+        sCtx.shadowColor = col;
+        sCtx.fill();
+        sCtx.shadowBlur = 0;
+      }
+
+      ripples = ripples.filter(r => r.alpha > 0.01);
+      for (const r of ripples) {
+        r.r += 1.5; r.alpha *= 0.95;
+        sCtx.strokeStyle = r.color.replace('hsl', 'hsla').replace(')', `, ${r.alpha})`);
+        sCtx.lineWidth = 1.5;
+        sCtx.beginPath(); sCtx.arc(r.x, r.y, r.r, 0, Math.PI * 2); sCtx.stroke();
+      }
+    }
+    drawPad();
+
+    pad.addEventListener('mouseenter', initAudio);
+    pad.addEventListener('mousemove', e => {
+      const rect = pad.getBoundingClientRect();
+      const x = e.clientX - rect.left, y = e.clientY - rect.top;
+      padMouse = { x, y };
+      if (e.buttons === 1) { updateNote(x); addRipple(x, y, colorFromPos(x, y)); }
+    });
+    pad.addEventListener('mousedown', e => {
+      const rect = pad.getBoundingClientRect();
+      const x = e.clientX - rect.left, y = e.clientY - rect.top;
+      initAudio(); startNote(x, y); addRipple(x, y, colorFromPos(x, y));
+    });
+    pad.addEventListener('mouseup', stopNote);
+    pad.addEventListener('mouseleave', () => { padMouse = null; stopNote(); });
+
+    pad.addEventListener('touchstart', e => {
+      e.preventDefault(); initAudio();
+      const rect = pad.getBoundingClientRect();
+      const t = e.touches[0];
+      const x = t.clientX - rect.left, y = t.clientY - rect.top;
+      padMouse = { x, y }; startNote(x, y); addRipple(x, y, colorFromPos(x, y));
+    }, { passive: false });
+    pad.addEventListener('touchmove', e => {
+      e.preventDefault();
+      const rect = pad.getBoundingClientRect();
+      const t = e.touches[0];
+      const x = t.clientX - rect.left, y = t.clientY - rect.top;
+      padMouse = { x, y }; updateNote(x);
+      if (Math.random() < 0.3) addRipple(x, y, colorFromPos(x, y));
+    }, { passive: false });
+    pad.addEventListener('touchend', () => { padMouse = null; stopNote(); }, { passive: false });
+
+    // ── Newsletter ──────────────────────────────────────────
+    document.getElementById('newsletter-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const fb  = document.getElementById('form-feedback');
+      const val = e.target.email.value.trim();
+      if (!val || !val.includes('@')) {
+        fb.textContent = 'drop a valid email.';
+        return;
+      }
+      fb.textContent = 'you\'re in. updates incoming.';
+      e.target.reset();
+    });
+
+    // ── Console ─────────────────────────────────────────────
+    console.log('%c PopFusion ', 'background:#E040FB;color:#000;font-weight:900;font-size:16px;padding:4px 8px;');
+    console.log('%cSummer 2026 · Amsterdam · A Trijbs Experience', 'color:#93A8AC;');
+    console.log('→ trijbsworld.nl');
+
+  })();
+  </script>
 </body>
 </html>
