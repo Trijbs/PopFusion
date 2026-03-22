@@ -786,6 +786,73 @@
       flex-wrap: wrap;
       gap: 0.5rem;
     }
+    /* ── BOT SECTION ──────────────────────────────────────── */
+    #bot {
+      padding: 7rem 0;
+      position: relative;
+    }
+    #bot::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--magenta), transparent);
+    }
+    .bot-sub {
+      max-width: 620px;
+      font-size: 0.95rem;
+      color: var(--neutral);
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+    .bot-features {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 3rem;
+    }
+    .bot-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.75rem 1.5rem;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .bot-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+    }
+    .bot-card__icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.85rem;
+      display: block;
+    }
+    .bot-card__title {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .bot-card__desc {
+      font-size: 0.78rem;
+      color: var(--neutral);
+      line-height: 1.65;
+    }
+    .bot-cta {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 900px) {
+      .bot-features { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 500px) {
+      .bot-features { grid-template-columns: 1fr; }
+    }
+
     .footer-bottom span {
       font-family: var(--font-mono);
       font-size: 0.6rem;
@@ -1150,6 +1217,46 @@
     </section>
 
     <!-- Manifesto -->
+    <!-- Bot Showcase -->
+    <section id="bot" aria-labelledby="bot-heading">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <div>
+            <span class="eyebrow">Discord Bot</span>
+            <h2 class="section-title" id="bot-heading">Your server, fully alive.</h2>
+          </div>
+          <a href="/popfusion/bot.html" class="text-link">See all commands →</a>
+        </div>
+        <p class="bot-sub reveal">Tainment+ brings economy, music discovery, games, and moderation into one bot — built around the PopFusion community. Free to add, with optional tiers to unlock more.</p>
+        <div class="bot-features">
+          <div class="bot-card reveal">
+            <span class="bot-card__icon">🪙</span>
+            <p class="bot-card__title">Economy</p>
+            <p class="bot-card__desc">Daily coins, work, gambling, slots, and a rob system. Spend on rods, profile cosmetics, and premium bait.</p>
+          </div>
+          <div class="bot-card reveal">
+            <span class="bot-card__icon">🎵</span>
+            <p class="bot-card__title">Music System</p>
+            <p class="bot-card__desc">Share tracks, build playlists, earn from trivia and lyric guessing. Your music taste shapes your profile.</p>
+          </div>
+          <div class="bot-card reveal">
+            <span class="bot-card__icon">🎮</span>
+            <p class="bot-card__title">Games</p>
+            <p class="bot-card__desc">Typerace, wordchain, blackjack, hangman, hot potato, and more — all with coin and gem rewards.</p>
+          </div>
+          <div class="bot-card reveal">
+            <span class="bot-card__icon">🛡️</span>
+            <p class="bot-card__title">Moderation</p>
+            <p class="bot-card__desc">Full mod suite with warn, ban, timeout, AutoMod, and a custom log channel. Unlocked with a server plan.</p>
+          </div>
+        </div>
+        <div class="bot-cta reveal">
+          <a href="https://discord.com/oauth2/authorize?client_id=1374911009009041448&permissions=8&integration_type=0&scope=bot" class="btn-primary" target="_blank" rel="noopener">Add to Discord</a>
+          <a href="/popfusion/bot.html" class="btn-ghost">Learn more</a>
+        </div>
+      </div>
+    </section>
+
     <section id="manifesto">
       <p class="manifesto-text">
         "Sound and image were never meant to be<br>
@@ -1211,10 +1318,7 @@
         <h4>Trijbs</h4>
         <ul>
           <li><a href="/">Home</a></li>
-          <li><a href="/vibebit/">VibeBit</a></li>
           <li><a href="/popfusion/bot.html">Tainment+ Bot</a></li>
-          <li><a href="https://instagram.com/trijbsworld" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="https://twitter.com/trijbs" target="_blank" rel="noopener">X</a></li>
         </ul>
       </div>
     </div>
