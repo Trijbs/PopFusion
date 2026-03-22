@@ -603,11 +603,11 @@
         </div>
         <div class="bot-hero__stats">
           <div class="stat reveal">
-            <div class="stat__value">24+</div>
+            <div class="stat__value">26+</div>
             <div class="stat__label">Cogs loaded</div>
           </div>
           <div class="stat reveal">
-            <div class="stat__value">50+</div>
+            <div class="stat__value">70+</div>
             <div class="stat__label">Commands</div>
           </div>
           <div class="stat reveal">
@@ -615,7 +615,7 @@
             <div class="stat__label">Sub tiers</div>
           </div>
           <div class="stat reveal">
-            <div class="stat__value">18</div>
+            <div class="stat__value">2300+</div>
             <div class="stat__label">Fish types</div>
           </div>
         </div>
@@ -645,7 +645,7 @@
           <div class="feature-card reveal">
             <span class="feature-card__icon">🎣</span>
             <h3 class="feature-card__title">Fishing</h3>
-            <p class="feature-card__desc">18 fish types across 6 rarity tiers. Upgrade your rod and compete on the fishing leaderboard.</p>
+            <p class="feature-card__desc">2300+ fish across 10 rarity tiers. 11 rod types unlock higher tiers. Premium Bait boosts rare catches for 1 hour.</p>
           </div>
           <div class="feature-card reveal">
             <span class="feature-card__icon">⌨️</span>
@@ -660,7 +660,17 @@
           <div class="feature-card reveal">
             <span class="feature-card__icon">🏆</span>
             <h3 class="feature-card__title">Levels & Roles</h3>
-            <p class="feature-card__desc">XP per message, auto milestone roles at levels 5/10/20/30/50, and per-tier XP multipliers.</p>
+            <p class="feature-card__desc">XP per message, 10 milestone roles from Newcomer (Lvl 5) to Void Walker (Lvl 300). Auto-created on server join.</p>
+          </div>
+          <div class="feature-card reveal">
+            <span class="feature-card__icon">🎂</span>
+            <h3 class="feature-card__title">Birthdays</h3>
+            <p class="feature-card__desc">Per-server birthday tracking. Daily announcements in your chosen channel with a birthday gift of 500 coins + 5 gems.</p>
+          </div>
+          <div class="feature-card reveal">
+            <span class="feature-card__icon">⚙️</span>
+            <h3 class="feature-card__title">Server Settings</h3>
+            <p class="feature-card__desc">Custom prefix per server, AFK system, command toggles per channel, addemote, randomcolor, and server subscription tiers.</p>
           </div>
           <div class="feature-card reveal">
             <span class="feature-card__icon">🎁</span>
@@ -670,7 +680,7 @@
           <div class="feature-card reveal">
             <span class="feature-card__icon">🛒</span>
             <h3 class="feature-card__title">Premium Shop</h3>
-            <p class="feature-card__desc">24+ items across three currency shops — XP boosts, fishing rods, streak shields, lucky gambles.</p>
+            <p class="feature-card__desc">45+ items — rods, profile cosmetics, XP boosts, streak shields, mystery boxes, piggy banks, and more.</p>
           </div>
         </div>
       </div>
@@ -780,6 +790,8 @@
           <button class="cmd-tab" data-tab="fishing">Fishing</button>
           <button class="cmd-tab" data-tab="moderation">Moderation</button>
           <button class="cmd-tab" data-tab="levels">Levels</button>
+          <button class="cmd-tab" data-tab="birthday">Birthday</button>
+          <button class="cmd-tab" data-tab="server">Server</button>
           <button class="cmd-tab" data-tab="utility">Utility</button>
         </div>
 
@@ -829,14 +841,40 @@
         </div>
 
         <div class="cmd-panel" data-panel="fishing">
-          <div class="cmd-row"><code>t!fish</code><p>Cast your line (15s base cooldown)</p></div>
-          <div class="cmd-row"><code>t!fishbag</code><p>View your current fish inventory</p></div>
-          <div class="cmd-row"><code>t!sell</code><p>Sell all fish for coins</p></div>
-          <div class="cmd-row"><code>t!fishstats</code><p>View your fishing statistics</p></div>
+          <div class="cmd-row"><code>t!fish</code><p>Cast your line — cooldown depends on rod tier</p></div>
+          <div class="cmd-row"><code>t!fishbag [@user]</code><p>View fish inventory sorted by rarity tier</p></div>
+          <div class="cmd-row"><code>t!sell [fish|all]</code><p>Sell fish for coins + gems + tokens</p></div>
+          <div class="cmd-row"><code>t!fishstats [@user]</code><p>Fishing level, XP, best catch, rod info</p></div>
           <div class="cmd-row"><code>t!fishtop</code><p>Top fishers leaderboard</p></div>
-          <div class="cmd-row"><code>t!buy rod_silver</code><p>Silver Rod — +30% uncommon / +50% rare</p></div>
-          <div class="cmd-row"><code>t!buy rod_gold</code><p>Gold Rod — +60% uncommon / +120% rare</p></div>
-          <div class="cmd-row"><code>t!buy rod_diamond</code><p>Diamond Rod — +200% legendary + shorter cd</p></div>
+          <div class="cmd-row"><code>t!rods</code><p>View all 11 rods, tier requirements and prices</p></div>
+          <div class="cmd-row"><code>t!buy rod_silver</code><p>Silver Rod (1500 🪙) — unlocks Uncommon &amp; Rare</p></div>
+          <div class="cmd-row"><code>t!buy rod_gold</code><p>Gold Rod (5000 🪙) — unlocks Epic tier</p></div>
+          <div class="cmd-row"><code>t!buy rod_diamond</code><p>Diamond Rod (20 💎) — unlocks Legendary tier</p></div>
+          <div class="cmd-row"><code>t!buy rod_pearl</code><p>Pearl Rod (45 💎) — unlocks Mythic tier</p></div>
+          <div class="cmd-row"><code>t!buy rod_crystal</code><p>Crystal Rod (100 💎) — unlocks Ancient tier</p></div>
+          <div class="cmd-row"><code>t!buy rod_titanium</code><p>Titanium Rod (50 🎫) — unlocks Celestial tier</p></div>
+          <div class="cmd-row"><code>t!buy rod_quantum</code><p>Quantum Rod (150 🎫) — unlocks Void tier</p></div>
+          <div class="cmd-row"><code>t!buy premium_bait</code><p>Premium Bait (800 🪙) — +40% rare fish for 1 hour</p></div>
+        </div>
+
+        <div class="cmd-panel" data-panel="birthday">
+          <div class="cmd-row"><code>t!birthday set MM/DD</code><p>Set your birthday for this server</p></div>
+          <div class="cmd-row"><code>t!birthday view [@user]</code><p>View someone's birthday and countdown</p></div>
+          <div class="cmd-row"><code>t!birthday list</code><p>All birthdays in this server, sorted by next</p></div>
+          <div class="cmd-row"><code>t!birthday del</code><p>Remove your birthday from this server</p></div>
+          <div class="cmd-row"><code>t!setbirthdaychannel #ch</code><p>Admin: set birthday announcement channel</p></div>
+        </div>
+
+        <div class="cmd-panel" data-panel="server">
+          <div class="cmd-row"><code>t!prefix [new]</code><p>View or set the server command prefix</p></div>
+          <div class="cmd-row"><code>t!afk [status]</code><p>Set your AFK status — auto-clears on next message</p></div>
+          <div class="cmd-row"><code>t!addemote &lt;name&gt; &lt;url&gt;</code><p>Add a custom emoji to the server</p></div>
+          <div class="cmd-row"><code>t!randomcolor</code><p>Generate a random color with HEX + RGB preview</p></div>
+          <div class="cmd-row"><code>t!membercount</code><p>Total / humans / bots / online breakdown</p></div>
+          <div class="cmd-row"><code>t!togglecmd &lt;cmd&gt; [#ch]</code><p>Admin: enable or disable a command per channel</p></div>
+          <div class="cmd-row"><code>t!cmdlist</code><p>View all command toggle overrides</p></div>
+          <div class="cmd-row"><code>t!servertier</code><p>View server subscription tier and features</p></div>
+          <div class="cmd-row"><code>t!setlevelupchannel #ch</code><p>Admin: set level-up announcement channel</p></div>
         </div>
 
         <div class="cmd-panel" data-panel="moderation">
@@ -857,10 +895,11 @@
         </div>
 
         <div class="cmd-panel" data-panel="levels">
-          <div class="cmd-row"><code>t!level [@user]</code><p>Check XP and current level</p></div>
+          <div class="cmd-row"><code>t!level [@user]</code><p>Check XP, level, and progress bar</p></div>
           <div class="cmd-row"><code>t!rank</code><p>Server XP leaderboard</p></div>
-          <div class="cmd-row"><code>t!profile [@user]</code><p>Full profile card with tier badge</p></div>
+          <div class="cmd-row"><code>t!profile [@user]</code><p>Full profile card — tier, gems, fishing stats, active items</p></div>
           <div class="cmd-row"><code>t!leaderboard</code><p>Auto-updating top richest, XP, and fishers</p></div>
+          <div class="cmd-row"><code>🎖️ Milestone Roles</code><p>Lvl 5 Newcomer → 10 Groover → 20 Fanatic → 30 Headliner → 50 Icon → 75 Superstar → 100 Legend → 150 Cosmic → 200 Immortal → 300 Void Walker</p></div>
         </div>
 
         <div class="cmd-panel" data-panel="utility">
