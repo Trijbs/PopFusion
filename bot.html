@@ -931,7 +931,7 @@
 
         <div class="cmd-panel" data-panel="fun">
           <div class="cmd-row"><code>t!fortune</code><p>Open a fortune cookie — quote + 1 coin (1h cooldown)</p></div>
-          <div class="cmd-row"><code>t!color &lt;hex&gt;</code><p>Preview any hex color with RGB breakdown</p></div>
+          <div class="cmd-row"><code>t!color [hex]</code><p>Show a random color, or preview a specific hex — HEX + RGB breakdown</p></div>
           <div class="cmd-row"><code>t!8ball &lt;question&gt;</code><p>Ask the magic 8-ball</p></div>
           <div class="cmd-row"><code>t!roll [NdN]</code><p>Roll dice — e.g. t!roll 2d6</p></div>
           <div class="cmd-row"><code>t!flip</code><p>Flip a coin</p></div>
@@ -952,7 +952,9 @@
           <div class="cmd-row"><code>t!sell [fish|all]</code><p>Sell fish for coins + gems + tokens</p></div>
           <div class="cmd-row"><code>t!fishstats [@user]</code><p>Fishing level, XP, best catch, rod info</p></div>
           <div class="cmd-row"><code>t!fishtop</code><p>Top fishers leaderboard</p></div>
-          <div class="cmd-row"><code>t!rods</code><p>View all 11 rods, tier requirements and prices</p></div>
+          <div class="cmd-row"><code>t!rods</code><p>View all 11 rods, tier requirements, prices and rod keys</p></div>
+          <div class="cmd-row"><code>t!equip &lt;rod_key&gt;</code><p>Equip a specific rod you own — e.g. t!equip rod_gold</p></div>
+          <div class="cmd-row"><code>t!unequip</code><p>Unequip manual selection — auto-uses your best owned rod</p></div>
           <div class="cmd-row"><code>t!buy rod_silver</code><p>Silver Rod (1500 🪙) — unlocks Uncommon &amp; Rare</p></div>
           <div class="cmd-row"><code>t!buy rod_gold</code><p>Gold Rod (5000 🪙) — unlocks Epic tier</p></div>
           <div class="cmd-row"><code>t!buy rod_diamond</code><p>Diamond Rod (20 💎) — unlocks Legendary tier</p></div>
@@ -982,23 +984,26 @@
           <div class="cmd-row"><code>t!setbirthdaychannel #ch</code><p>Admin: set birthday announcement channel</p></div>
           <div class="cmd-row"><code>t!setlevelupchannel #ch</code><p>Admin: set level-up announcement channel</p></div>
           <div class="cmd-row"><code>t!setmodlog #ch</code><p>Admin: set moderation log channel</p></div>
+          <div class="cmd-row"><code>t!setleaderboard #ch</code><p>Admin: set a dedicated leaderboard channel — auto-updated every 5 minutes</p></div>
+          <div class="cmd-row"><code>t!clearleaderboard</code><p>Admin: remove the dedicated leaderboard channel</p></div>
+          <div class="cmd-row"><code>t!setupgenreroles</code><p>Admin: create the pick-your-lane channel with 10 genre reaction roles</p></div>
         </div>
 
         <div class="cmd-panel" data-panel="moderation">
-          <div class="cmd-row"><code>t!warn @user &lt;reason&gt;</code><p>Issue a warning (logged to mod log)</p></div>
-          <div class="cmd-row"><code>t!warnings @user</code><p>View a user's warning history</p></div>
-          <div class="cmd-row"><code>t!clearwarn @user &lt;id&gt;</code><p>Remove a warning</p></div>
-          <div class="cmd-row"><code>t!kick @user [reason]</code><p>Kick a member</p></div>
-          <div class="cmd-row"><code>t!ban @user [reason]</code><p>Ban a member</p></div>
-          <div class="cmd-row"><code>t!unban &lt;user_id&gt;</code><p>Unban a user by ID</p></div>
-          <div class="cmd-row"><code>t!timeout @user &lt;duration&gt;</code><p>Mute a user temporarily</p></div>
-          <div class="cmd-row"><code>t!purge &lt;amount&gt;</code><p>Bulk delete messages</p></div>
-          <div class="cmd-row"><code>t!slowmode &lt;seconds&gt;</code><p>Set channel slowmode</p></div>
-          <div class="cmd-row"><code>t!lock / t!unlock</code><p>Lock or unlock a channel</p></div>
-          <div class="cmd-row"><code>t!modlog</code><p>View recent moderation cases</p></div>
-          <div class="cmd-row"><code>t!setmodlog #channel</code><p>Set the mod log channel</p></div>
-          <div class="cmd-row"><code>t!nick @user &lt;name&gt;</code><p>Change a member's nickname</p></div>
-          <div class="cmd-row"><code>t!addrole / t!removerole</code><p>Manage member roles</p></div>
+          <div class="cmd-row"><code>t!purge &lt;amount&gt;</code><p>Bulk delete up to 10 messages (free) or 100 (Basic+ server plan)</p></div>
+          <div class="cmd-row"><code>t!slowmode &lt;seconds&gt;</code><p>Set channel slowmode — free on all servers</p></div>
+          <div class="cmd-row"><code>t!lock / t!unlock</code><p>Lock or unlock a channel — free on all servers</p></div>
+          <div class="cmd-row"><code>t!nick @user &lt;name&gt;</code><p>Change a member's nickname — free on all servers</p></div>
+          <div class="cmd-row"><code>t!warn @user &lt;reason&gt;</code><p>Issue a warning — logged to mod log (Basic+ server plan)</p></div>
+          <div class="cmd-row"><code>t!warnings @user</code><p>View a user's warning history (Basic+ server plan)</p></div>
+          <div class="cmd-row"><code>t!clearwarn @user &lt;id&gt;</code><p>Remove a warning (Basic+ server plan)</p></div>
+          <div class="cmd-row"><code>t!kick @user [reason]</code><p>Kick a member (Basic+ server plan)</p></div>
+          <div class="cmd-row"><code>t!ban @user [reason]</code><p>Ban a member (Basic+ server plan)</p></div>
+          <div class="cmd-row"><code>t!unban &lt;user_id&gt;</code><p>Unban a user by ID (Basic+ server plan)</p></div>
+          <div class="cmd-row"><code>t!timeout @user &lt;duration&gt;</code><p>Mute a user temporarily (Basic+ server plan)</p></div>
+          <div class="cmd-row"><code>t!modlog</code><p>View recent moderation cases (Basic+ server plan)</p></div>
+          <div class="cmd-row"><code>t!setmodlog #channel</code><p>Set the mod log channel (Basic+ server plan)</p></div>
+          <div class="cmd-row"><code>t!addrole / t!removerole</code><p>Manage member roles (Basic+ server plan)</p></div>
         </div>
 
         <div class="cmd-panel" data-panel="levels">
@@ -1041,7 +1046,7 @@
         <div class="cmd-panel" data-panel="music">
           <div class="cmd-row"><code>t!recommend [genre]</code><p>Get 3 random song recommendations</p></div>
           <div class="cmd-row"><code>t!hotsongs</code><p>Top 5 most-shared tracks this week</p></div>
-          <div class="cmd-row"><code>t!genresearch &lt;genre&gt;</code><p>5 picks for a genre — Vibe+</p></div>
+          <div class="cmd-row"><code>t!genresearch &lt;genre&gt;</code><p>5 picks for a genre — Vibe+ (16 genres: pop, hiphop, rock, electronic, rnb, jazz, country, latin, indie, soul, reggae, classical, metal, folk, kpop, lofi)</p></div>
           <div class="cmd-row"><code>t!moodsearch &lt;mood&gt;</code><p>Songs matched to hype / chill / sad / focus / party / workout — Vibe+</p></div>
           <div class="cmd-row"><code>t!artistinfo &lt;artist&gt;</code><p>Artist card: genre, fun fact, top songs — Premium+</p></div>
           <div class="cmd-row"><code>t!toptracks</code><p>Global top 10 shared songs last 30 days — Premium+</p></div>
@@ -1052,7 +1057,7 @@
           <div class="cmd-row"><code>t!musicprofile [@user]</code><p>View music stats: genre, streak, earnings, badges</p></div>
           <div class="cmd-row"><code>t!setgenre &lt;genre&gt;</code><p>Set your favourite genre on your music profile</p></div>
           <div class="cmd-row"><code>t!setartist &lt;artist&gt;</code><p>Add a favourite artist (cap depends on tier)</p></div>
-          <div class="cmd-row"><code>t!sharetrack &lt;song&gt; - &lt;artist&gt;</code><p>Share a track daily for coins — doubles with Hot Boost</p></div>
+          <div class="cmd-row"><code>t!sharetrack &lt;song&gt; - &lt;artist&gt;</code><p>Share a track (6h cooldown) for coins — doubles with Hot Boost</p></div>
           <div class="cmd-row"><code>t!musicwrapped</code><p>Your monthly music summary — Vibe+</p></div>
           <div class="cmd-row"><code>t!playlist create/add/view/list/delete</code><p>Manage personal playlists — Vibe+</p></div>
         </div>
