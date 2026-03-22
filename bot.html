@@ -592,7 +592,7 @@
       <div class="shell">
         <span class="eyebrow">PopFusion Discord Bot</span>
         <h1 class="bot-hero__title">Meet <span class="accent">Tainment+</span></h1>
-        <p class="bot-hero__sub">Economy, games, fishing, moderation, and four subscription tiers — everything your PopFusion community needs in one bot.</p>
+        <p class="bot-hero__sub">Economy, games, fishing, music discovery, automod, and four subscription tiers — everything your PopFusion community needs in one bot.</p>
         <div class="bot-hero__cta">
           <a class="btn-primary" href="https://discord.com/oauth2/authorize?client_id=1374911009009041448&permissions=8&integration_type=0&scope=bot" target="_blank" rel="noopener">
             ➕ Add to Discord
@@ -603,11 +603,11 @@
         </div>
         <div class="bot-hero__stats">
           <div class="stat reveal">
-            <div class="stat__value">26+</div>
+            <div class="stat__value">30+</div>
             <div class="stat__label">Cogs loaded</div>
           </div>
           <div class="stat reveal">
-            <div class="stat__value">70+</div>
+            <div class="stat__value">90+</div>
             <div class="stat__label">Commands</div>
           </div>
           <div class="stat reveal">
@@ -680,7 +680,17 @@
           <div class="feature-card reveal">
             <span class="feature-card__icon">🛒</span>
             <h3 class="feature-card__title">Premium Shop</h3>
-            <p class="feature-card__desc">45+ items — rods, profile cosmetics, XP boosts, streak shields, mystery boxes, piggy banks, and more.</p>
+            <p class="feature-card__desc">60+ items — rods, profile cosmetics, XP boosts, streak shields, mystery boxes, piggy banks, music boosts, and more.</p>
+          </div>
+          <div class="feature-card reveal">
+            <span class="feature-card__icon">🎵</span>
+            <h3 class="feature-card__title">Music System</h3>
+            <p class="feature-card__desc">Discover songs by genre &amp; mood, share tracks, compete in lyrics guessing, music trivia, and build personal playlists — all with coin rewards.</p>
+          </div>
+          <div class="feature-card reveal">
+            <span class="feature-card__icon">🤖</span>
+            <h3 class="feature-card__title">AutoMod</h3>
+            <p class="feature-card__desc">Per-guild automated moderation: word filter, anti-spam, link control, caps limit, mention flood protection. Actions: warn, timeout, or kick.</p>
           </div>
         </div>
       </div>
@@ -724,6 +734,9 @@
               <li>Would You Rather with token rewards</li>
               <li>1.2× XP multiplier</li>
               <li>+10% work coin bonus</li>
+              <li>Genre & mood song search</li>
+              <li>Lyrics guessing & music trivia</li>
+              <li>Playlists (up to 3) & Music Wrapped</li>
               <li>Vibe badge on profile</li>
             </ul>
             <a class="btn-ghost" href="https://discord.gg/SgkYDqkZmt" target="_blank" rel="noopener">Upgrade in Discord</a>
@@ -742,6 +755,8 @@
               <li>+20% work coin bonus</li>
               <li>+15% rare fish chance</li>
               <li>1 free Lucky Gamble / week</li>
+              <li>Artist info & top tracks</li>
+              <li>Playlists (up to 5)</li>
               <li>Premium badge on profile</li>
             </ul>
             <a class="btn-primary" href="https://discord.gg/SgkYDqkZmt" target="_blank" rel="noopener">Upgrade in Discord</a>
@@ -761,6 +776,8 @@
               <li>Double fishing XP</li>
               <li>2 free Lucky Gambles / week</li>
               <li>50% larger streak bonus</li>
+              <li>New releases & unlimited playlists</li>
+              <li>2x music streak + token rewards</li>
               <li>Pro badge on profile</li>
             </ul>
             <a class="btn-ghost" href="https://discord.gg/SgkYDqkZmt" target="_blank" rel="noopener">Upgrade in Discord</a>
@@ -793,6 +810,8 @@
           <button class="cmd-tab" data-tab="birthday">Birthday</button>
           <button class="cmd-tab" data-tab="server">Server</button>
           <button class="cmd-tab" data-tab="utility">Utility</button>
+          <button class="cmd-tab" data-tab="music">Music</button>
+          <button class="cmd-tab" data-tab="automod">AutoMod</button>
         </div>
 
         <div class="cmd-panel is-active" data-panel="economy">
@@ -913,6 +932,39 @@
           <div class="cmd-row"><code>t!gcreate</code><p>Create a giveaway</p></div>
           <div class="cmd-row"><code>t!serverinfo</code><p>Server statistics</p></div>
           <div class="cmd-row"><code>t!avatar [@user]</code><p>View a user's avatar</p></div>
+        </div>
+
+        <div class="cmd-panel" data-panel="music">
+          <div class="cmd-row"><code>t!recommend [genre]</code><p>Get 3 random song recommendations</p></div>
+          <div class="cmd-row"><code>t!hotsongs</code><p>Top 5 most-shared tracks this week</p></div>
+          <div class="cmd-row"><code>t!genresearch &lt;genre&gt;</code><p>5 picks for a genre — Vibe+</p></div>
+          <div class="cmd-row"><code>t!moodsearch &lt;mood&gt;</code><p>Songs matched to hype / chill / sad / focus / party / workout — Vibe+</p></div>
+          <div class="cmd-row"><code>t!artistinfo &lt;artist&gt;</code><p>Artist card: genre, fun fact, top songs — Premium+</p></div>
+          <div class="cmd-row"><code>t!toptracks</code><p>Global top 10 shared songs last 30 days — Premium+</p></div>
+          <div class="cmd-row"><code>t!newreleases</code><p>Latest new releases list — Pro only</p></div>
+          <div class="cmd-row"><code>t!musictrivia [genre]</code><p>4-option trivia with button voting — coins &amp; gems for all correct</p></div>
+          <div class="cmd-row"><code>t!lyricsguess</code><p>Guess the song from a lyric snippet — Vibe+</p></div>
+          <div class="cmd-row"><code>t!namethetune</code><p>Channel race: name the song — speed bonus coins — Vibe+</p></div>
+          <div class="cmd-row"><code>t!musicprofile [@user]</code><p>View music stats: genre, streak, earnings, badges</p></div>
+          <div class="cmd-row"><code>t!setgenre &lt;genre&gt;</code><p>Set your favourite genre on your music profile</p></div>
+          <div class="cmd-row"><code>t!setartist &lt;artist&gt;</code><p>Add a favourite artist (cap depends on tier)</p></div>
+          <div class="cmd-row"><code>t!sharetrack &lt;song&gt; - &lt;artist&gt;</code><p>Share a track daily for coins — doubles with Hot Boost</p></div>
+          <div class="cmd-row"><code>t!musicwrapped</code><p>Your monthly music summary — Vibe+</p></div>
+          <div class="cmd-row"><code>t!playlist create/add/view/list/delete</code><p>Manage personal playlists — Vibe+</p></div>
+        </div>
+
+        <div class="cmd-panel" data-panel="automod">
+          <div class="cmd-row"><code>t!automod status</code><p>View all automod settings, word filter, and allowlist</p></div>
+          <div class="cmd-row"><code>t!automod enable / disable</code><p>Turn automod on or off for this server</p></div>
+          <div class="cmd-row"><code>t!automod log #channel</code><p>Set the channel where violations are logged</p></div>
+          <div class="cmd-row"><code>t!automod action &lt;warn|timeout|kick&gt;</code><p>Set the default action taken on violation</p></div>
+          <div class="cmd-row"><code>t!automod spam &lt;count&gt; &lt;seconds&gt;</code><p>Trigger on N messages within a time window (2–20 msgs, 2–30s)</p></div>
+          <div class="cmd-row"><code>t!automod links &lt;on|off&gt;</code><p>Block all links not on the allowlist</p></div>
+          <div class="cmd-row"><code>t!automod allowlink &lt;domain&gt;</code><p>Add a domain to the link allowlist</p></div>
+          <div class="cmd-row"><code>t!automod removelink &lt;domain&gt;</code><p>Remove a domain from the allowlist</p></div>
+          <div class="cmd-row"><code>t!automod caps &lt;0-100&gt;</code><p>Flag messages above a % caps threshold (0 = off)</p></div>
+          <div class="cmd-row"><code>t!automod mentions &lt;0-50&gt;</code><p>Flag messages with too many mentions (0 = off)</p></div>
+          <div class="cmd-row"><code>t!automod word add/remove/list/clear</code><p>Manage the banned word list — clear requires Administrator</p></div>
         </div>
 
       </div>
