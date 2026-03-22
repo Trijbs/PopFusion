@@ -698,6 +698,68 @@
 
     <div class="section-divider"></div>
 
+    <!-- ── Server Tiers ──────────────────────────────────── -->
+    <section class="section" id="server-tiers">
+      <div class="shell">
+        <div class="section-header reveal">
+          <span class="eyebrow">Per-server plans</span>
+          <h2 class="section-title">Server Subscription</h2>
+          <p style="color:var(--text-muted);max-width:600px;margin:0 auto;">Separate from user tiers — server admins can upgrade their entire server to unlock moderation tools, member discounts, and more.</p>
+        </div>
+        <div class="tiers-grid">
+
+          <div class="tier-card reveal">
+            <span class="tier-card__emoji">🆓</span>
+            <h3 class="tier-card__name">Free Server</h3>
+            <p class="tier-card__price">No cost <span>/ forever</span></p>
+            <ul class="tier-card__features">
+              <li>Economy, fun &amp; games</li>
+              <li>Music system</li>
+              <li>Fishing &amp; levels</li>
+              <li>Birthdays &amp; polls</li>
+              <li>No moderation tools</li>
+            </ul>
+            <a class="btn-ghost" href="https://discord.com/oauth2/authorize?client_id=1374911009009041448&permissions=8&integration_type=0&scope=bot" target="_blank" rel="noopener">Add bot</a>
+          </div>
+
+          <div class="tier-card tier-card--popular reveal">
+            <span class="tier-card__emoji">🛡️</span>
+            <h3 class="tier-card__name">Basic Server</h3>
+            <p class="tier-card__price">$14.99 <span>/ month</span></p>
+            <ul class="tier-card__features">
+              <li>All Free features</li>
+              <li>Full moderation suite</li>
+              <li>AutoMod integration</li>
+              <li>Custom log channel</li>
+              <li>Welcome messages</li>
+              <li>30% off user subscriptions for members</li>
+            </ul>
+            <a class="btn-primary" href="https://discord.gg/SgkYDqkZmt" target="_blank" rel="noopener">Upgrade in Discord</a>
+          </div>
+
+          <div class="tier-card reveal">
+            <span class="tier-card__emoji">⚡</span>
+            <h3 class="tier-card__name">Pro Server</h3>
+            <p class="tier-card__price">$23.99 <span>/ month</span></p>
+            <ul class="tier-card__features">
+              <li>All Basic features</li>
+              <li>30% off user subs for members</li>
+              <li>Server-wide XP multiplier</li>
+              <li>Advanced audit log</li>
+              <li>Custom level roles</li>
+              <li>Server analytics</li>
+              <li>Priority support</li>
+            </ul>
+            <a class="btn-ghost" href="https://discord.gg/SgkYDqkZmt" target="_blank" rel="noopener">Upgrade in Discord</a>
+          </div>
+
+        </div>
+        <p style="text-align:center;margin-top:1.5rem;color:var(--text-muted);font-size:0.9rem;">Use <code style="color:var(--cyan);font-family:'Roboto Mono',monospace;">t!serversubscribe</code> in your server to see options, or join our <a href="https://discord.gg/SgkYDqkZmt" style="color:var(--magenta)">support server</a> to upgrade.</p>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
     <!-- ── Tiers ──────────────────────────────────────────── -->
     <section class="section" id="tiers">
       <div class="shell">
@@ -804,28 +866,33 @@
           <button class="cmd-tab" data-tab="entertainment">Entertainment</button>
           <button class="cmd-tab" data-tab="games">Games</button>
           <button class="cmd-tab" data-tab="fungames">Fun Games</button>
+          <button class="cmd-tab" data-tab="fun">Fun</button>
           <button class="cmd-tab" data-tab="fishing">Fishing</button>
+          <button class="cmd-tab" data-tab="music">Music</button>
           <button class="cmd-tab" data-tab="moderation">Moderation</button>
+          <button class="cmd-tab" data-tab="automod">AutoMod</button>
           <button class="cmd-tab" data-tab="levels">Levels</button>
           <button class="cmd-tab" data-tab="birthday">Birthday</button>
           <button class="cmd-tab" data-tab="server">Server</button>
+          <button class="cmd-tab" data-tab="subscription">Subscription</button>
           <button class="cmd-tab" data-tab="utility">Utility</button>
-          <button class="cmd-tab" data-tab="music">Music</button>
-          <button class="cmd-tab" data-tab="automod">AutoMod</button>
         </div>
 
         <div class="cmd-panel is-active" data-panel="economy">
-          <div class="cmd-row"><code>t!balance [@user]</code><p>View coins, gems, and tokens</p></div>
-          <div class="cmd-row"><code>t!daily</code><p>Claim daily coins + streak bonus</p></div>
+          <div class="cmd-row"><code>t!balance [@user]</code><p>Check all 3 currency balances</p></div>
+          <div class="cmd-row"><code>t!daily</code><p>Claim daily coins + streak gems/tokens</p></div>
           <div class="cmd-row"><code>t!work</code><p>Earn coins (1h cooldown)</p></div>
           <div class="cmd-row"><code>t!gamble &lt;amount&gt;</code><p>Gamble coins (45% win chance)</p></div>
           <div class="cmd-row"><code>t!slots &lt;bet&gt;</code><p>Slot machine — jackpot pays gems</p></div>
           <div class="cmd-row"><code>t!rob @user</code><p>Attempt to rob another user</p></div>
-          <div class="cmd-row"><code>t!transfer @user &lt;amount&gt;</code><p>Send currency to someone</p></div>
-          <div class="cmd-row"><code>t!shop [coins|gems|tokens]</code><p>Browse the premium shop</p></div>
+          <div class="cmd-row"><code>t!transfer @user &lt;amount&gt; [currency]</code><p>Send coins, gems, or tokens to someone</p></div>
+          <div class="cmd-row"><code>t!shop [coins|gems|tokens]</code><p>Browse the 3-section premium shop</p></div>
           <div class="cmd-row"><code>t!buy &lt;item_id&gt;</code><p>Purchase a shop item</p></div>
           <div class="cmd-row"><code>t!inventory</code><p>View your active items</p></div>
           <div class="cmd-row"><code>t!richest</code><p>Server wealth leaderboard</p></div>
+          <div class="cmd-row"><code>t!setbalance @user &lt;amount&gt; [currency]</code><p>Admin: set a user's balance</p></div>
+          <div class="cmd-row"><code>t!addbalance @user &lt;amount&gt; [currency]</code><p>Admin: add or subtract balance</p></div>
+          <div class="cmd-row"><code>t!reseteconomy @user</code><p>Admin: fully reset a user's economy</p></div>
         </div>
 
         <div class="cmd-panel" data-panel="entertainment">
@@ -852,11 +919,26 @@
         <div class="cmd-panel" data-panel="fungames">
           <div class="cmd-row"><code>t!typerace</code><p>Type a sentence fast — coins based on speed</p></div>
           <div class="cmd-row"><code>t!riddle</code><p>First correct answer wins 80 coins + 1 gem</p></div>
-          <div class="cmd-row"><code>t!wouldyourather</code><p>Vote with buttons — all voters earn 1 token</p></div>
-          <div class="cmd-row"><code>t!emojidecode</code><p>Decode an emoji phrase for coins and tokens</p></div>
+          <div class="cmd-row"><code>t!wouldyourather</code><p>Vote with buttons — all voters earn 1 token (Vibe+)</p></div>
+          <div class="cmd-row"><code>t!emojidecode</code><p>Decode an emoji phrase for coins and tokens (Vibe+)</p></div>
           <div class="cmd-row"><code>t!fastmath</code><p>Channel race math question — speed bonus coins</p></div>
           <div class="cmd-row"><code>t!hotpotato</code><p>Pass the button — holder when timer explodes loses coins</p></div>
           <div class="cmd-row"><code>t!wordchain</code><p>Chain words — 20 coins per word, gems for top scorer</p></div>
+        </div>
+
+        <div class="cmd-panel" data-panel="fun">
+          <div class="cmd-row"><code>t!8ball &lt;question&gt;</code><p>Ask the magic 8-ball</p></div>
+          <div class="cmd-row"><code>t!roll [NdN]</code><p>Roll dice — e.g. t!roll 2d6</p></div>
+          <div class="cmd-row"><code>t!flip</code><p>Flip a coin</p></div>
+          <div class="cmd-row"><code>t!meme</code><p>Random meme pulled from Reddit</p></div>
+          <div class="cmd-row"><code>t!quote</code><p>Random inspirational quote</p></div>
+          <div class="cmd-row"><code>t!compliment @user</code><p>Send someone a compliment</p></div>
+          <div class="cmd-row"><code>t!roast @user</code><p>Friendly roast another user</p></div>
+          <div class="cmd-row"><code>t!choose &lt;a | b | c&gt;</code><p>Pick randomly from options</p></div>
+          <div class="cmd-row"><code>t!mock &lt;text&gt;</code><p>SpOnGeBoB mOcKiNg tExT</p></div>
+          <div class="cmd-row"><code>t!reverse &lt;text&gt;</code><p>Reverse any text</p></div>
+          <div class="cmd-row"><code>t!joke [category]</code><p>Get a joke — dad / puns / tech / animal / food (Vibe+ unlocks all)</p></div>
+          <div class="cmd-row"><code>t!story [genre]</code><p>Get a story — adventure / mystery / fantasy (Vibe+ unlocks all)</p></div>
         </div>
 
         <div class="cmd-panel" data-panel="fishing">
@@ -885,15 +967,16 @@
         </div>
 
         <div class="cmd-panel" data-panel="server">
-          <div class="cmd-row"><code>t!prefix [new]</code><p>View or set the server command prefix</p></div>
+          <div class="cmd-row"><code>t!prefix [new]</code><p>View or set the server command prefix per guild</p></div>
           <div class="cmd-row"><code>t!afk [status]</code><p>Set your AFK status — auto-clears on next message</p></div>
-          <div class="cmd-row"><code>t!addemote &lt;name&gt; &lt;url&gt;</code><p>Add a custom emoji to the server</p></div>
+          <div class="cmd-row"><code>t!addemote &lt;name&gt; &lt;url&gt;</code><p>Admin: add a custom emoji to the server</p></div>
           <div class="cmd-row"><code>t!randomcolor</code><p>Generate a random color with HEX + RGB preview</p></div>
           <div class="cmd-row"><code>t!membercount</code><p>Total / humans / bots / online breakdown</p></div>
           <div class="cmd-row"><code>t!togglecmd &lt;cmd&gt; [#ch]</code><p>Admin: enable or disable a command per channel</p></div>
           <div class="cmd-row"><code>t!cmdlist</code><p>View all command toggle overrides</p></div>
-          <div class="cmd-row"><code>t!servertier</code><p>View server subscription tier and features</p></div>
+          <div class="cmd-row"><code>t!setbirthdaychannel #ch</code><p>Admin: set birthday announcement channel</p></div>
           <div class="cmd-row"><code>t!setlevelupchannel #ch</code><p>Admin: set level-up announcement channel</p></div>
+          <div class="cmd-row"><code>t!setmodlog #ch</code><p>Admin: set moderation log channel</p></div>
         </div>
 
         <div class="cmd-panel" data-panel="moderation">
@@ -916,22 +999,36 @@
         <div class="cmd-panel" data-panel="levels">
           <div class="cmd-row"><code>t!level [@user]</code><p>Check XP, level, and progress bar</p></div>
           <div class="cmd-row"><code>t!rank</code><p>Server XP leaderboard</p></div>
-          <div class="cmd-row"><code>t!profile [@user]</code><p>Full profile card — tier, gems, fishing stats, active items</p></div>
-          <div class="cmd-row"><code>t!leaderboard</code><p>Auto-updating top richest, XP, and fishers</p></div>
+          <div class="cmd-row"><code>t!profile [@user]</code><p>Full profile card — tier, level, gems, active items, badges</p></div>
+          <div class="cmd-row"><code>t!leaderboard</code><p>Auto-updating richest, XP, and top fishers</p></div>
+          <div class="cmd-row"><code>t!userinfo [@user]</code><p>User information — join date, roles, status</p></div>
+          <div class="cmd-row"><code>t!serverinfo</code><p>Server statistics</p></div>
+          <div class="cmd-row"><code>t!avatar [@user]</code><p>View a user's full-size avatar</p></div>
           <div class="cmd-row"><code>🎖️ Milestone Roles</code><p>Lvl 5 Newcomer → 10 Groover → 20 Fanatic → 30 Headliner → 50 Icon → 75 Superstar → 100 Legend → 150 Cosmic → 200 Immortal → 300 Void Walker</p></div>
         </div>
 
+        <div class="cmd-panel" data-panel="subscription">
+          <div class="cmd-row"><code>t!subscribe</code><p>View all user subscription tiers and pricing</p></div>
+          <div class="cmd-row"><code>t!tier [@user]</code><p>Check your current subscription tier</p></div>
+          <div class="cmd-row"><code>t!upgrade &lt;tier&gt;</code><p>Upgrade your user subscription (Basic / Vibe / Premium / Pro)</p></div>
+          <div class="cmd-row"><code>t!renew [months]</code><p>Renew your current subscription</p></div>
+          <div class="cmd-row"><code>t!benefits</code><p>Compare all tier benefits side by side</p></div>
+          <div class="cmd-row"><code>t!servertier</code><p>View this server's subscription plan and features</p></div>
+          <div class="cmd-row"><code>t!serversubscribe</code><p>View server plans — Free / Basic ($14.99) / Pro ($23.99) — unlocks mod tools & 30% off user subs</p></div>
+          <div class="cmd-row"><code>t!verifypayment</code><p>Verify your LemonSqueezy payment manually</p></div>
+        </div>
+
         <div class="cmd-panel" data-panel="utility">
-          <div class="cmd-row"><code>t!help [category]</code><p>Full command list with dropdown</p></div>
+          <div class="cmd-row"><code>t!help [category]</code><p>Full command list with category dropdown</p></div>
           <div class="cmd-row"><code>t!ping</code><p>Check bot latency</p></div>
-          <div class="cmd-row"><code>t!stats</code><p>Bot statistics</p></div>
-          <div class="cmd-row"><code>t!subscribe</code><p>View subscription tiers and pricing</p></div>
-          <div class="cmd-row"><code>t!upgrade &lt;tier&gt;</code><p>Upgrade your subscription</p></div>
-          <div class="cmd-row"><code>t!remind &lt;time&gt; &lt;msg&gt;</code><p>Set a personal reminder</p></div>
-          <div class="cmd-row"><code>t!poll &lt;question&gt; | &lt;opt1&gt; | ...</code><p>Create a community poll</p></div>
-          <div class="cmd-row"><code>t!gcreate</code><p>Create a giveaway</p></div>
-          <div class="cmd-row"><code>t!serverinfo</code><p>Server statistics</p></div>
-          <div class="cmd-row"><code>t!avatar [@user]</code><p>View a user's avatar</p></div>
+          <div class="cmd-row"><code>t!stats</code><p>Bot statistics — servers, users, version</p></div>
+          <div class="cmd-row"><code>t!remind &lt;time&gt; &lt;msg&gt;</code><p>Set a personal reminder (e.g. t!remind 1h30m buy food)</p></div>
+          <div class="cmd-row"><code>t!reminders</code><p>List your active reminders</p></div>
+          <div class="cmd-row"><code>t!delreminder &lt;id&gt;</code><p>Delete a reminder by ID</p></div>
+          <div class="cmd-row"><code>t!poll &lt;question&gt; | &lt;opt1&gt; | ...</code><p>Create a community poll with up to 5 options</p></div>
+          <div class="cmd-row"><code>t!gcreate</code><p>Create a timed giveaway</p></div>
+          <div class="cmd-row"><code>t!gend &lt;msg_id&gt;</code><p>End a giveaway early</p></div>
+          <div class="cmd-row"><code>t!greroll &lt;msg_id&gt;</code><p>Reroll giveaway winners</p></div>
         </div>
 
         <div class="cmd-panel" data-panel="music">
